@@ -1,11 +1,24 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { navigate } from '../../../navigation/navigationService';
+import { routes } from '../../../navigation/Routes';
+import MainBackground from '../../Common/MainBackground';
 
 const SignIn: React.FC = () => {
   return (
-    <View>
-      <Text>SignIn</Text>
-    </View>
+    <MainBackground>
+      <Text style={{ color: 'black', fontSize: 24 }}>SignIn Page</Text>
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'blue',
+          padding: 8
+        }}
+        onPress={() => {
+          navigate(routes.SignUpScreen);
+        }}>
+        <Text style={{ color: 'white', fontSize: 20 }}>Go to Sign Up Page</Text>
+      </TouchableOpacity>
+    </MainBackground>
   );
 };
 
