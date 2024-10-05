@@ -4,11 +4,10 @@ import { AuthNavigator } from './AuthNavigator';
 import { UnAuthNavigator } from './UnAuthNavigator';
 import { navigationRef } from './navigationService';
 
-export const MainNavigation: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
+export const MainNavigation: React.FC<{ isAuthenticated: boolean, setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>> }> = ({ isAuthenticated, setIsAuthenticated }) => {
     return (
         <NavigationContainer ref={navigationRef}>
-            {isAuthenticated ? <AuthNavigator /> : <UnAuthNavigator />}
+            {isAuthenticated ? <AuthNavigator /> : <UnAuthNavigator setIsAuthenticated={setIsAuthenticated} />}
         </NavigationContainer>
     );
 };
-

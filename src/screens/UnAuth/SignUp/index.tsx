@@ -10,9 +10,11 @@ import { SignUpCss } from './css/SignUpCss';
 import { SignUpvalidateForm } from './configure/SignUpvalidateForm';
 import { TitleConstants } from '../../../Constants/TitleConstants'; 
 import AxiosInstance from '../../../Config/AxiosInstance';
-import AppLoader from '../../../Components/AppLoader'; // Import AppLoader
+import AppLoader from '../../../Components/AppLoader';
+import { routes } from '../../../navigation/Routes';
+import { navigate, replace } from '../../../navigation/navigationService';
 
-const SignUp = () => {
+const SignUp: React.FC<{ setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setIsAuthenticated }) => {
   const [formValues, setFormValues] = useState({
     fullName: '',
     email: '',
@@ -59,11 +61,9 @@ const SignUp = () => {
         password: password,
         username: username,
       });
-
-      console.log('Sign Up Successful:', response.data);
-      Alert.alert('Success', 'Sign up successful!');
+      setIsAuthenticated(true);
+      replace(routes.HomeScreen);
     } catch (error:any) {
-      console.error('Sign Up Error:', error.response?.data || error.message);
       Alert.alert('Error', 'Sign up failed. Please try again.');
     } finally {
       setLoading(false);

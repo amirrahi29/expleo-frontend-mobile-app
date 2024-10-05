@@ -1,7 +1,7 @@
-import { navigate } from "../../../../navigation/navigationService";
+import { replace } from "../../../../navigation/navigationService";
 
 export const launchScreen = (screen: string, delay: number) => {
   setTimeout(() => {
-    navigate(screen);
+    replace(screen);
   }, delay);
 };

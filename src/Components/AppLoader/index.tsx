@@ -14,21 +14,19 @@ const AppLoader = (props:any) => {
         loading,
         ...attributes
     } = props;
-    console.log("loading",loading);
     return (
         <Modal
             transparent={true}
             animationType={'none'}
             visible={loading}
             onRequestClose={() => {
-                // console.log('close modal') 
             }}>
 
             <View style={AppLoaderCss.modalBackground}>
                 {(Platform.OS === 'ios') ? <StatusBar 
                 translucent barStyle="dark-content" /> : null}
                 <View style={AppLoaderCss.activityIndicatorWrapper}>
-                    <ActivityIndicator color={ColorConstants.grayColor}
+                    <ActivityIndicator color={ColorConstants.redColor}
                         size={"large"}
                         animating={loading} />
                 </View>
