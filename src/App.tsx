@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { MainNavigation } from './navigation/MainNavigation';
+import { View, Text } from 'react-native'
+import React from 'react'
+import { MainNavigation } from './navigation/MainNavigation'
 
 const App: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
   return (
-    <MainNavigation isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
-  );
-};
+    <MainNavigation/>
+  )
+}
 
-export default App;
+export default App

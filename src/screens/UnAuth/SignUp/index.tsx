@@ -52,12 +52,6 @@ const SignUp: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      Alert.alert('Success', 'User created successfully!');
-    }
-  }, [isAuthenticated]);
-
-  useEffect(() => {
     if (error) {
       Alert.alert('Error', error);
     }

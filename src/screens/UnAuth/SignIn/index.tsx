@@ -8,6 +8,19 @@ const SignIn: React.FC = () => {
   return (
     <MainBackground>
       <Text style={{ color: 'black', fontSize: 24 }}>SignIn Page</Text>
+
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'blue',
+          padding: 8,
+          marginVertical:16
+        }}
+        onPress={() => {
+          navigate(routes.HomeScreen);
+        }}>
+        <Text style={{ color: 'white', fontSize: 20 }}>Go to Home Page</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity
         style={{
           backgroundColor: 'blue',

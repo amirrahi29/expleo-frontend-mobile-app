@@ -10,11 +10,12 @@ export const TitleConstants = {
     agreeTermsLabel: "I agree with terms and privacy",
     signUpButtonTitle: "Sign Up",
     termsAndPrivacyError: "You must agree to the terms and privacy policy.",
-    fullNameLabel: "Full Name",             
-    emailLabel: "Email",                   
-    passwordLabel: "Password",              
+    fullNameLabel: "Full Name",
+    emailLabel: "Email",
+    passwordLabel: "Password",
     fullNamePlaceholder: "Enter your full name",
-    emailPlaceholder: "Enter your email",  
-    passwordPlaceholder: "Enter your password", 
-    signUpFailed: "Sign up failed. Please try again."
+    emailPlaceholder: "Enter your email",
+    passwordPlaceholder: "Enter your password",
+    signUpFailed: "Sign up failed. Please try again.",
+    userNotFound: "No users found."
 };

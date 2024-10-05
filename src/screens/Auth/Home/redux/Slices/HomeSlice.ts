@@ -1,20 +1,17 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import AxiosInstance from '../../../../../Config/AxiosInstance';
-import { TitleConstants } from '../../../../../Constants/TitleConstants';
-import { SignUpFormValues } from '../SignUpTypes';
-import { SignUpUserService } from '../Services/SignUpUserService';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { navigate } from '../../../../../navigation/navigationService';
+import { routes } from '../../../../../navigation/Routes';
+import { HomeService } from '../Services/HomeService';
 
 interface SignUpState {
   loading: boolean;
   error: string | null;
-  isAuthenticated: boolean;
   user: any; 
 }
 
 const initialState: SignUpState = {
   loading: false,
   error: null,
-  isAuthenticated: false,
   user: null, 
 };
 
@@ -23,22 +20,22 @@ const SignUpSlice = createSlice({
   initialState,
   reducers: {
     setAuthenticated: (state, action: PayloadAction<boolean>) => {
-      state.isAuthenticated = action.payload;
+      
     },
     resetSignUpState: () => initialState, 
   },
   extraReducers: (builder) => {
     builder
-      .addCase(SignUpUserService.pending, (state) => {
+      .addCase(HomeService.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(SignUpUserService.fulfilled, (state, action) => {
+      .addCase(HomeService.fulfilled, (state, action) => {
         state.loading = false;
-        state.isAuthenticated = true;
         state.user = action.payload; 
+        navigate(routes.HomeScreen);
       })
-      .addCase(SignUpUserService.rejected, (state, action) => {
+      .addCase(HomeService.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

@@ -1,7 +1,9 @@
 import axios from 'axios';
+// @ts-ignore
+import {BASE_URL} from "@env";
 
 const AxiosInstance = axios.create({
-    baseURL: 'https://expleo-backend-springboot-production.up.railway.app',
+    baseURL: BASE_URL,
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',

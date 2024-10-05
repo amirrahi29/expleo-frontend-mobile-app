@@ -6,4 +6,5 @@ export const ColorConstants = {
     blackColor:'#000',
     redColor:'#ff0000',
     greenColor:'green',
+    blueColor:'blue',
 }
