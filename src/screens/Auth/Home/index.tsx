@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
 import StyledText from '../../../Components/StyledText';
 import { ColorConstants } from '../../../Constants/ColorConstants';
 import MainBackground from '../../Common/MainBackground';
@@ -17,12 +17,13 @@ interface User {
 }
 
 const Home: React.FC = () => {
+
   const dispatch = useDispatch();
   const { loading, error, user } = useSelector((state: any) => state.home);
 
   useEffect(() => {
     dispatch<any>(HomeService());
-  }, [dispatch]); 
+  }, [dispatch]);
 
   const renderItem = ({ item }: { item: User }) => (
     <View style={HomeCss.userItem}>
@@ -32,6 +33,37 @@ const Home: React.FC = () => {
       <StyledText fontSize={14} color={ColorConstants.grayColor}>
         {item.email}
       </StyledText>
+
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 16 }}>
+
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            backgroundColor: ColorConstants.blueColor,
+            padding: 8,
+            marginRight: 8
+          }}>
+          <StyledText fontSize={14} color={ColorConstants.whiteColor}>
+            {'Edit'}
+          </StyledText>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            backgroundColor: ColorConstants.redColor,
+            padding: 8,
+            marginLeft: 8
+          }}>
+          <StyledText fontSize={14} color={ColorConstants.whiteColor}>
+            {'Delete'}
+          </StyledText>
+        </TouchableOpacity>
+
+      </View>
+
     </View>
   );
 
@@ -41,12 +73,12 @@ const Home: React.FC = () => {
         {error && <StyledText color={ColorConstants.redColor}>{error}</StyledText>}
         {user && user.data && user.data.length > 0 ? (
           <FlatList
-            data={[...user.data].reverse()}
+            data={user.data}
             keyExtractor={(item) => item.id.toString()}
             renderItem={renderItem}
           />
         ) : (
-          !loading && <StyledText>{TitleConstants.userNotFound}</StyledText>
+          loading == true ? <></> : <StyledText>{TitleConstants.userNotFound}</StyledText>
         )}
       </View>
       <AppLoader loading={loading} />
