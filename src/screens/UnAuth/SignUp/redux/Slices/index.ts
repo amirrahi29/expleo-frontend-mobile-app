@@ -36,7 +36,7 @@ const SignUpSlice = createSlice({
         state.loading = false;
         state.isAuthenticated = true;
         state.user = action.payload; 
-        navigate(routes.HomeScreen);
+        // navigate(routes.HomeScreen);
       })
       .addCase(SignUpUserService.rejected, (state, action) => {
         state.loading = false;

@@ -13,6 +13,8 @@ import AppLoader from '../../../Components/AppLoader';
 import { useAppDispatch, useAppSelector } from '../../../navigation/ReduxHooks';
 import { RootState } from '../../../Store';
 import { SignUpUserService } from './redux/Services/SignUpUserService';
+import { navigate, replace } from '../../../navigation/navigationService';
+import { routes } from '../../../navigation/Routes';
 
 const SignUp: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -48,14 +50,19 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    dispatch(SignUpUserService({ fullName, email, password, agreed }));
-  };
+    dispatch(SignUpUserService({ fullName, email, password, agreed })).then(async (result: any) => {
+      if (result.payload) {
 
-  useEffect(() => {
-    if (error) {
-      Alert.alert('Error', error);
-    }
-  }, [error]);
+        const status = result.payload.success;
+        if(status){
+          navigate(routes.HomeScreen);
+        }else{
+          Alert.alert('Error', error?.toString()); 
+        }
+      }
+    });
+
+  };
 
   return (
     <MainBackground>
