@@ -16,4 +16,5 @@ export const TitleConstants = {
     fullNamePlaceholder: "Enter your full name",
     emailPlaceholder: "Enter your email",  
     passwordPlaceholder: "Enter your password", 
+    signUpFailed: "Sign up failed. Please try again."
 };

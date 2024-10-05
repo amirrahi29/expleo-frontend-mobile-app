@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, ScrollView, Alert } from 'react-native';
 import MainBackground from '../../Common/MainBackground';
 import { ImageConstants } from '../../../Constants/ImageConstants';
@@ -9,12 +9,15 @@ import CustomImage from '../../../Components/CustomImage';
 import { SignUpCss } from './css/SignUpCss';
 import { SignUpvalidateForm } from './configure/SignUpvalidateForm';
 import { TitleConstants } from '../../../Constants/TitleConstants'; 
-import AxiosInstance from '../../../Config/AxiosInstance';
 import AppLoader from '../../../Components/AppLoader';
-import { routes } from '../../../navigation/Routes';
-import { navigate, replace } from '../../../navigation/navigationService';
+import { useAppDispatch, useAppSelector } from '../../../navigation/ReduxHooks';
+import { RootState } from '../../../Store';
+import { SignUpUserService } from './redux/Services/SignUpUserService';
 
-const SignUp: React.FC<{ setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setIsAuthenticated }) => {
+const SignUp: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { loading, error, isAuthenticated } = useAppSelector((state: RootState) => state.signUp);
+
   const [formValues, setFormValues] = useState({
     fullName: '',
     email: '',
@@ -23,17 +26,11 @@ const SignUp: React.FC<{ setIsAuthenticated: React.Dispatch<React.SetStateAction
     isPasswordVisible: false,
   });
 
-  const [loading, setLoading] = useState(false); 
-
   const handleChange = (field: string, value: string | boolean) => {
     setFormValues({
       ...formValues,
       [field]: value,
     });
-  };
-
-  const generateUsername = (fullName: string) => {
-    return fullName.replace(/\s+/g, '').toLowerCase();
   };
 
   const handleSignUp = async () => {
@@ -51,24 +48,20 @@ const SignUp: React.FC<{ setIsAuthenticated: React.Dispatch<React.SetStateAction
       return;
     }
 
-    const username = generateUsername(fullName);
-
-    try {
-      setLoading(true);
-      const response = await AxiosInstance.post('/users', {
-        name: fullName,
-        email: email,
-        password: password,
-        username: username,
-      });
-      setIsAuthenticated(true);
-      replace(routes.HomeScreen);
-    } catch (error:any) {
-      Alert.alert('Error', 'Sign up failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    dispatch(SignUpUserService({ fullName, email, password, agreed }));
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      Alert.alert('Success', 'User created successfully!');
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert('Error', error);
+    }
+  }, [error]);
 
   return (
     <MainBackground>
