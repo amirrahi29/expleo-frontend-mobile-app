@@ -7,7 +7,7 @@ export const SignUpCss = StyleSheet.create({
       justifyContent: 'center',
     },
     logo: {
-      width: '100%',
+      width: '90%',
       height: 100,
       marginBottom: 20,
     },
